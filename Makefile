@@ -48,7 +48,7 @@ $(SOURCE_DIR): | $(BUILD_DIR) # Clone the repository
 
 # Build
 build: $(SOURCE_DIR) # Checkout the correct tag and build
-	cd $(SOURCE_DIR) && git checkout $(TAG)
+	cd $(SOURCE_DIR) && git fetch && git checkout $(TAG) 
 	cd $(BUILD_DIR) && cmake $(CMAKE_ARGS) $(SOURCE_DIR) && make
 
 
