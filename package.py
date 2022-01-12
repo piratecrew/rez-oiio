@@ -1,6 +1,6 @@
 name = "oiio"
 
-version = "2.3.9.1"
+version = "2.3.11.0"
 
 private_build_requires = [
     "pybind11-2"
@@ -12,7 +12,6 @@ requires = [
     "ocio-2",
     "jpegturbo-2",
     "libpng-1",
-    "libraw-0"
 ]
 
 @early()
@@ -28,7 +27,8 @@ def build_requires():
     return requirements
 
 variants = [
-    ["platform-linux", "python-3.7"]
+    ["platform-linux", "python-3.7", "libraw-0"],
+    ["platform-linux", "python-3.7", "libraw-master"]
 ]
 
 build_command = "make -f {root}/Makefile {install}"
@@ -39,4 +39,3 @@ def commands():
     env.PYTHONPATH.append(
         "{root}/lib64/python{resolve.python.version.major}.{resolve.python.version.minor}/site-packages"
     )
-
