@@ -28,7 +28,9 @@ def build_requires():
 
 variants = [
     ["platform-linux", "python-3.7", "libraw-0"],
-    ["platform-linux", "python-3.7", "libraw-master"]
+    ["platform-linux", "python-3.7", "libraw-master"],
+    ["platform-linux", "python-3.9", "libraw-0"],
+    ["platform-linux", "python-3.9", "libraw-master"],
 ]
 
 build_command = "make -f {root}/Makefile {install}"
