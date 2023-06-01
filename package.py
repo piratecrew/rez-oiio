@@ -1,6 +1,6 @@
 name = "oiio"
 
-version = "2.3.11.0"
+version = "2.4.11.1"
 
 private_build_requires = [
     "pybind11-2"
@@ -12,6 +12,8 @@ requires = [
     "ocio-2",
     "jpegturbo-2",
     "libpng-1",
+    "libraw-0.21",
+    "ffmpeg-5.1",
 ]
 
 @early()
@@ -27,10 +29,8 @@ def build_requires():
     return requirements
 
 variants = [
-    ["platform-linux", "python-3.7", "libraw-0"],
-    ["platform-linux", "python-3.7", "libraw-master"],
-    ["platform-linux", "python-3.9", "libraw-0"],
-    ["platform-linux", "python-3.9", "libraw-master"],
+    ["platform-linux", "python-3.7"],
+    ["platform-linux", "python-3.9"],
 ]
 
 build_command = "make -f {root}/Makefile {install}"
