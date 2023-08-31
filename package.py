@@ -9,7 +9,7 @@ private_build_requires = [
 requires = [
     "boost-1.76",
     "openexr-3",
-    "ocio-2",
+    "ocio-2.2",
     "jpegturbo-2",
     "libpng-1",
     "libraw-0.21",
