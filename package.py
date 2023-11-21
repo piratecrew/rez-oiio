@@ -31,6 +31,7 @@ def build_requires():
 variants = [
     ["platform-linux", "python-3.7"],
     ["platform-linux", "python-3.9"],
+    ["platform-linux", "python-3.10"],
 ]
 
 build_command = "make -f {root}/Makefile {install}"
