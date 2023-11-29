@@ -16,6 +16,19 @@ requires = [
     "ffmpeg-5.1",
 ]
 
+def pre_build_commands():
+    # We explicitly disable some dependencies as we
+    # don't want them to be accidentally picked up
+    env.DISABLE_OPENCV="1"
+    env.DISABLE_OPENVDB="1"
+    env.DISABLE_R3DSDK="1"
+    env.DISABLE_NUKE="1"
+    env.DISABLE_QT6="1"
+    env.DISABLE_QT5="1"
+    env.DISABLE_PTEX="1"
+    env.DISABLE_IV="1"
+
+
 @early()
 def build_requires():
     # check if the system gcc is too old <9
