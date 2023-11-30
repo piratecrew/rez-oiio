@@ -26,6 +26,8 @@ def pre_build_commands():
     env.DISABLE_QT6="1"
     env.DISABLE_QT5="1"
     env.DISABLE_PTEX="1"
+    env.DISABLE_DCMTK="1"
+    env.DISABLE_LIBHEIF="1"
     env.DISABLE_IV="1"
 
 
