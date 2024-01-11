@@ -1,50 +1,58 @@
 name = "oiio"
 
-version = "2.4.11.1"
+version = "2.5.7.0"
 
 private_build_requires = [
     "pybind11-2"
 ]
 
 requires = [
-    "boost-1.76",
-    "openexr-3",
+    "boost-1.82",
+    "openexr-3.1",
     "ocio-2.1",
     "jpegturbo-2",
     "libpng-1",
     "libraw-0.21",
     "ffmpeg-5.1",
+    "tbb-2020"
 ]
 
 def pre_build_commands():
+    env.Boost_ROOT = env.BOOST_ROOT
+    env.Python_ROOT = env.PYTHON_ROOT
+    env.Ffmpeg_ROOT = env.FFMPEG_ROOT
+    unsetenv("BOOST_ROOT")
+    unsetenv("PYTHON_ROOT")
+    unsetenv("FFMPEG_ROOT")
+    unsetenv("PYBIND11_ROOT")
+    env.CMAKE_PREFIX_PATH.append(env.REZ_JPEGTURBO_ROOT)
+    #setenv("libjpeg-turbo", env.REZ_JPEGTURBO_ROOT)
+
     # We explicitly disable some dependencies as we
     # don't want them to be accidentally picked up
     env.DISABLE_OPENCV="1"
+    env.DISABLE_GIF="1"
     env.DISABLE_OPENVDB="1"
     env.DISABLE_R3DSDK="1"
     env.DISABLE_NUKE="1"
     env.DISABLE_QT6="1"
     env.DISABLE_QT5="1"
     env.DISABLE_PTEX="1"
-    env.DISABLE_DCMTK="1"
-    env.DISABLE_LIBHEIF="1"
+    #env.DISABLE_DCMTK="1"
+    #env.DISABLE_LIBHEIF="1"
+    env.DISABLE_HEIF="1"
+    env.DISABLE_WEBP="1"
+    env.DISABLE_DICOM="1"
     env.DISABLE_IV="1"
+    env.DISABLE_OPENJPEG="1"
 
 
-@early()
-def build_requires():
-    # check if the system gcc is too old <9
-    # then we require devtoolset-9
-    requirements = ["cmake-3.15+<4"]
-    from subprocess import check_output
-    gcc_major = int(check_output(r"gcc -dumpversion | cut -f1 -d.", shell=True).strip().decode())
-    if gcc_major < 9:
-        requirements.append("devtoolset-9")
-
-    return requirements
+build_requires = [
+    "cmake-3.15+<4",
+    "gcctoolset-9",
+]
 
 variants = [
-    ["platform-linux", "python-3.7"],
     ["platform-linux", "python-3.9"],
     ["platform-linux", "python-3.10"],
 ]
@@ -57,3 +65,5 @@ def commands():
     env.PYTHONPATH.append(
         "{root}/lib64/python{resolve.python.version.major}.{resolve.python.version.minor}/site-packages"
     )
+    if building:
+        env.OpenImageIO_ROOT = "{root}" # CMake Hint

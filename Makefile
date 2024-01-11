@@ -27,8 +27,9 @@ PYTHON_VERSION ?= $(REZ_PYTHON_VERSION)
 CMAKE_ARGS := -DCMAKE_INSTALL_PREFIX=$(PREFIX) \
 	-DCMAKE_BUILD_TYPE=$(BUILD_TYPE) \
 	-DCMAKE_SKIP_RPATH=ON \
-	-DGLIBCXX_USE_CXX11_ABI=0 \
-	-DPYTHON_VERSION=$(PYTHON_VERSION)
+	-DCMAKE_CXX_STANDARD=17 \
+	-DPYTHON_VERSION=$(PYTHON_VERSION) \
+	-DOIIO_BUILD_TESTS=FALSE
 
 # Warn about building master if no tag is provided
 ifeq "$(TAG)" "vNOT_SET"
@@ -49,6 +50,7 @@ $(SOURCE_DIR): | $(BUILD_DIR) # Clone the repository
 
 # Build
 build: $(SOURCE_DIR) # Checkout the correct tag and build
+	echo CMAKE_BUILD_TYPE=$(BUILD_TYPE)
 	cd $(SOURCE_DIR) && git fetch && git checkout $(TAG) 
 	cd $(BUILD_DIR) && cmake $(CMAKE_ARGS) $(SOURCE_DIR) && make
 
@@ -58,7 +60,7 @@ install: build
 	cd $(BUILD_DIR) && make install
 
 test: build # Run the tests in the build
-	$(MAKE) -C $(BUILD_DIR) test
+	$(MAKE) -C $(BUILD_DIR)/BUILD/Release/ test
 
 clean:
 	rm -rf $(BUILD_ROOT)
