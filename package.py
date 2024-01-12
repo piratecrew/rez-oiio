@@ -1,6 +1,6 @@
 name = "oiio"
 
-version = "2.5.7.0"
+version = "2.4.17.0"
 
 private_build_requires = [
     "pybind11-2"
