@@ -1,13 +1,12 @@
 name = "oiio"
 
-version = "2.5.15.0"
+version = "3.0.0.0-beta1"
 
 private_build_requires = [
     "pybind11-2"
 ]
 
 requires = [
-    "boost-1.82",
     "openexr-3.2",
     "ocio-2.3",
     "jpegturbo-2",
@@ -18,10 +17,8 @@ requires = [
 ]
 
 def pre_build_commands():
-    env.Boost_ROOT = env.BOOST_ROOT
     env.Python_ROOT = env.PYTHON_ROOT
     env.Ffmpeg_ROOT = env.FFMPEG_ROOT
-    unsetenv("BOOST_ROOT")
     unsetenv("PYTHON_ROOT")
     unsetenv("FFMPEG_ROOT")
     unsetenv("PYBIND11_ROOT")
@@ -72,7 +69,7 @@ def commands():
 tests = {
     "python": {
         "command": """
-        python -c "import OpenImageIO as oiio; assert oiio.VERSION_STRING == '{version}'"
+        python -c "import OpenImageIO as oiio; assert oiio.VERSION_STRING == '{version}'.replace('-','')"
         """,
         "run_on": [
             "pre_install",
