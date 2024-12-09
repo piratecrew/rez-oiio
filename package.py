@@ -1,6 +1,6 @@
 name = "oiio"
 
-version = "3.0.0.0-beta1"
+version = "3.0.1.0"
 
 private_build_requires = [
     "pybind11-2"
@@ -69,7 +69,7 @@ def commands():
 tests = {
     "python": {
         "command": """
-        python -c "import OpenImageIO as oiio; assert oiio.VERSION_STRING == '{version}'.replace('-','')"
+        python "tests/check_version.py" 
         """,
         "run_on": [
             "pre_install",
