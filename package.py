@@ -3,7 +3,8 @@ name = "oiio"
 version = "3.0.1.0"
 
 private_build_requires = [
-    "pybind11-2"
+    "pybind11-2",
+    "gcc-11"
 ]
 
 requires = [
@@ -46,10 +47,10 @@ def pre_build_commands():
 
 build_requires = [
     "cmake-3.15+<4",
-    "gcctoolset-9",
 ]
 
 variants = [
+    ["platform-linux", "python-3.9"],
     ["platform-linux", "python-3.10"],
     ["platform-linux", "python-3.11"],
 
